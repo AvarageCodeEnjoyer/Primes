@@ -10,12 +10,24 @@
 </head>
 <body>
   <div class="container">
-    <h2>Input a number to check if its Prime</h2>
+    <h2>Input a number to see all squares and primes</h2>
     <form action="">
       <input type="number" id="input">
-      <input type="submit">
+      <div class="formGroup">
+        <input type="radio" name="choose" id="prime">
+        <label for="prime">Prime</label>
+      </div>
+      <div class="formGroup">
+        <input type="radio" name="choose" id="square">
+        <label for="square">Square</label>
+      </div>
+      <div class="formGroup">
+        <input type="checkbox" name="loop" id="loop">
+        <label for="loop">Loop up to input</label>
+      </div>
+      <input type="submit" value="Find Out">
     </form>
-
+    <div id="numbers"></div>
   </div>
 </body>
 </html>

@@ -1,0 +1,21 @@
+form {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+#numbers {
+  width: 200px;
+  min-height: 100px;
+}
+/* 
+form > input[type="radio"] {
+  justify-self: flex-start;
+} */
