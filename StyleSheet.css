@@ -15,6 +15,10 @@ form {
   width: 200px;
   min-height: 100px;
 }
+
+#submit {
+  width: 200px; 
+}
 /* 
 form > input[type="radio"] {
   justify-self: flex-start;

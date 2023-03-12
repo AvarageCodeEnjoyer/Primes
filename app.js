@@ -7,46 +7,45 @@ let squares, primes
 
 form.addEventListener('submit', e => {
   e.preventDefault()
-  console.clear()
-  console.time('Count')
+  if (!choose[0].checked && !choose[1].checked) return
+  chooseFun()
+})
 
-  let inputVal = input.value
+function chooseFun() {
+  console.clear()
+  console.time('Count') 
+  primes = []
+  squares = []
+   
+  let inputVal = parseInt(input.value)
   
+  // make sure number is not one
+  if (inputVal <= 1) {
+    console.log('Number must be greater then 1')
+    return
+  }
+
   // Check for primes
   if (choose[0].checked){
-    if (loop.checked){
-      for (let i = 2; i <= inputVal; i++){
-        isPrime(i)
-      }
-      return
-    }
-    isPrime(inputVal)
+    loopCheck(isPrime, inputVal, primes)
+    console.log(`There are ${primes.length} primes before ${inputVal}`)
+    twinPrimes(primes)
+    console.log(primes)
   }
 
   // Check for squares
   if (choose[1].checked){
-    if (loop.checked){
-      for (let i = 2; i <= inputVal; i++){
-        isSquare(i)
-      }
-      return
-    }
-    isSquare(inputVal)
+    loopCheck(isSquare, inputVal, squares)
   }
   console.timeEnd('Count')
-})
+}
 
 /* -------------------------------------------------------------------------- */
 /*                      Functions to check for property's                     */
 /* -------------------------------------------------------------------------- */
 
 // Check if number is Prime
-function isPrime(num) {
-  let primes = []
-  if (num <= 1) {
-    console.log('Number must be greater then 1')
-    return
-  }
+function isPrime(num, primes) {
   for (let i = 2; i <= Math.sqrt(num); i++) {
     if (num % i === 0) {
       console.log(`${num} is NOT a prime`)
@@ -59,17 +58,42 @@ function isPrime(num) {
 }
 
 // Check if number is a Square
-function isSquare(num, squares){
-  squares = []
+function isSquare(num, squares){  
   if (num <= 1) {
     console.log('Number must be greater then 1')
     return false
   }
-  if (num % Math.sqrt(num) === 0) {
-    console.log(`${num}, is ${Math.sqrt(num)} squared`)
-    squares.push(num)
-    return true
+  let squareRoot = Math.sqrt(num);
+  if (num % squareRoot === 0) {
+    console.log(`${num} is ${squareRoot} squared`);
+    squares.push(num, squareRoot)
+    return squareRoot;
   }
   console.log(`${num} is NOT a square`)
   return false
+}
+
+// Check how many twin primes are in the primes array
+function twinPrimes(arr) {
+  let counter = 0
+  for (let i = 0; i < arr.length; i++) {
+    let diff = Math.abs(arr[i] - arr[i + 1])
+    if (diff === 2) counter++
+  }
+  console.log(`There are ${counter} twin primes in this array`)
+}
+
+/* -------------------------------------------------------------------------- */
+/*                        function to reduce repetition                       */
+/* -------------------------------------------------------------------------- */
+
+function loopCheck(funCall, inputVal, arr) {
+  if (loop.checked){
+    for (let i = 2; i <= inputVal; i++){
+      funCall(i, arr)
+    }
+  }
+  else{
+    funCall(inputVal, arr)
+  }
 }
